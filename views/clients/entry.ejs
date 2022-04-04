@@ -1,0 +1,64 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/table.css">
+</head>
+<body>
+  <%- include('../includes/navigation.ejs') %>
+  
+    <main class="dashboard">
+      <% console.log(entries, 'Im here') %>
+      <h1 class="customer_name"><%= entries[0].customer_name %></h1>
+      <% if(startDate != null && endDate !== null) { %>
+      <h6 class="customer_date"><%= startDate %> to <%= endDate %></h6>
+      <% } %>
+      <% if(!(entries[0].amount === undefined)) { %>
+      <% let totalAmount = 0; %>
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Product</th>
+            <th>Rate</th>
+            <th>Quantity</th>
+            <th>Slip</th>
+            <th>Vehicle No.</th>
+            <th>Mode</th>
+            <th>Amount</th>
+            <th>Deletion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (entry of entries) { %>
+            <tr class="<%= entry.amount > 0 ? '' : 'active' %>">
+              <td><%= entry.date.toISOString().substring(0, 10) %></td>
+              <td><%= entry.product %></td>
+              <td><%= entry.rate %></td>
+              <td><%= entry.quantity %></td>
+              <td><%= entry.slip %></td>
+              <td><%= entry.vehicle %></td>
+              <td><%= entry.mode %></td>
+              <td><%= entry.amount > 0 ? entry.amount : -1 * (entry.amount) %></td>
+              <td>
+                <form id="Deletion" action="/customers" method="POST">
+                  <input type="hidden" name="entry_id" value="<%= entry._id %>" />
+                  <input type="hidden" name="customer" value="<%= entry.customer_id  %>">
+                  <input type="hidden" name="startingDate" value="<%= startDate %>">
+                  <input type="hidden" name="endingDate" value="<%= endDate %>">
+                  <input type="hidden" name="delete" value="delete">
+                  <button type="submit"><img src="media/trash.svg" class="delete" alt=""></button>
+                </form>
+              </td>
+              <% totalAmount = totalAmount + entry.amount %>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <h3 class="customer_name">Total Amount: <%= totalAmount %></h3>
+      <% } else { %>
+        <h3 class="customer_name">No Record for the given Period</h3>
+      <% } %>
+  </main>
+
+  <script src="scripts/delete.js"></script>
+
+<%- include('../includes/end.ejs') %>

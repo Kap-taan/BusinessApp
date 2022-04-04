@@ -1,0 +1,69 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/table.css">
+<link rel="stylesheet" href="css/bill.css">
+</head>
+<body>
+  
+    <main class="dashboard">
+      <div class="intro">
+        <img src="https://iocl.com/images/static/indianoil_logo.jpg" alt="Indian Oil">
+        <h1><%= user_name %></h1>
+      </div>
+      <% if(vehicles.length > 0) { %>
+      <% let allTotal = 0; %>
+      <h1 class="customer_name"><%= entries[0].customer_name.toUpperCase() %></h1>
+      <% if(startDate != null && endDate !== null) { %>
+      <h6 class="customer_date"><%= startDate %> to <%= endDate %></h6>
+      <% } %>
+      <% if(entries.length > 0) { %>
+      <% for(vehicle of vehicles) { %>
+        <h1 class="customer_vehicle"><%= vehicle.vehicle_no %></h1>
+      <% let totalAmount = 0; %>
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Product</th>
+            <th>Slip</th>
+            <th>Rate</th>
+            <th>Quantity</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (entry of entries) { %>
+            <% if(entry.vehicle === vehicle.vehicle_no) { %>
+            <tr>
+              <td><%= entry.date.toISOString().substring(0, 10) %></td>
+              <td><%= entry.product %></td>
+              <td><%= entry.slip %></td>
+              <td><%= entry.rate %></td>
+              <td><%= entry.quantity %></td>
+              <td><%= entry.amount > 0 ? entry.amount.toFixed(2) : -1 * (entry.amount.toFixed(2)) %></td>
+              <% totalAmount = totalAmount + entry.amount %>
+              <% allTotal = allTotal + entry.amount %>
+            </tr>
+            <% } %>
+            
+          <% } %>
+        </tbody>
+      </table>
+      <% if(totalAmount !== 0) { %>
+       
+        <h3 class="customer_amount">Total Amount: <%= totalAmount.toFixed(2) %></h3>
+      <% } else { %>
+        <h3 class="customer_allamount">No credit for this Vehicle</h3>
+      <% } %>
+      <% } %>
+      <h3 class="customer_allamount">Grand Amount: <%= allTotal.toFixed(2) %></h3>
+      <% } else { %>
+        <h3 class="customer_name">No Record for the given Period or no vehicles</h3>
+      <% } %>
+
+      <% } else { %>
+        <h2 class="error">No vehicles are present</h2>
+      <% } %>
+  </main>
+
+<%- include('../includes/end.ejs') %>

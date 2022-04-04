@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600&display=swap');
+
+.content-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  width: 800px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  margin: auto;
+  font-family: 'Nunito', sans-serif;
+}
+
+.content-table thead tr {
+  background-color: #333232;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table th {
+  padding: 8px;
+}
+.content-table td {
+  padding: 5px;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+/* .content-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+} */
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid #333232;
+}
+
+.content-table tbody tr.active-row {
+  font-weight: bold;
+  color: #333232;
+}
+
+.customer_name {
+  text-align: center;
+  font-size: 24px;
+  font-family: 'Courier New', Courier, monospace;
+  margin-bottom: 40px;
+  margin-top: 30px;
+}
+
+.customer_date {
+  text-align: center;
+  font-size: 14px;
+  font-family: 'Courier New', Courier, monospace;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.active {
+  color: red;
+  background-color: rgb(236, 174, 174);
+}
+
+.customer_amount {
+  text-align: right;
+  font-size: 20px;
+  font-family: 'Courier New', Courier, monospace;
+  margin: auto;
+  margin-bottom: 50px;
+  margin-top: 10px;
+  /* border: 2px solid blue; */
+  width: 800px;
+}
+
+.delete {
+  width: 20px;
+  cursor: pointer;  
+}

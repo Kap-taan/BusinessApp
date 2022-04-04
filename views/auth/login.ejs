@@ -1,0 +1,35 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+  <%- include('../includes/nav.ejs') %>
+  
+  <section class="login">
+    <section class="login_img">
+      <img src="media/login.svg" alt="Login">
+    </section>
+
+    <main class="login_page">
+      <h3 class="login_heading">Login</h3>
+      <% if (errorMessage) { %>
+      <div class="error">
+        <%= errorMessage %>
+      </div>
+      <% } %>
+      <form action="/login" method="POST">
+        <div class="single_input">
+          <label>E-Mail</label>
+          <input type="email" name="email">
+        </div>
+        <div class="single_input">
+          <label>Password</label>
+          <input type="password" name="password">
+        </div>
+        <div class="single_input">
+          <button class="btn">Login</button>
+        </div>
+      </form>
+    </main>
+  </section>
+
+<%- include('../includes/end.ejs') %>

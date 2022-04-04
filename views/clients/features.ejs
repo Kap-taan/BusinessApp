@@ -1,0 +1,109 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <%- include('../includes/navigation.ejs') %>
+  
+  <main class="dashboard">
+    <!-- <section class="cover">
+      <img src="media/welcome.svg" alt="Welcome">
+      <div class="coverDetails">
+        <h2>Welcome back</h2>
+        <p style="text-align: center; font-size: 35px;"><%= user_name %></p>
+      </div>
+    </section> -->
+    <div class="cards">
+      <a href="/new-entry">
+        <div class="card">
+          <img src="media/accounts.svg" alt="Cover">
+          <h4>New Entry</h4>
+        </div>
+      </a>
+      <a href="/customers">
+        <div class="card">
+          <img src="media/customers.svg" alt="Cover">
+          <h4>View Customers</h4>
+        </div>
+      </a>
+      <a href="/new-customer">
+        <div class="card">
+          <img src="media/customer_profile.svg" alt="Cover">
+          <h4>Add Customer</h4>
+        </div>
+      </a>
+      <a href="/payment">
+        <div class="card">
+          <img src="media/payments.svg" alt="Cover">
+          <h4>Payments</h4>
+        </div>
+      </a>
+      <a href="/new-product">
+        <div class="card">
+          <img src="media/product.svg" alt="Cover">
+          <h4>New Product</h4>
+        </div>
+      </a>
+      <a href="/update-price">
+        <div class="card">
+          <img src="media/price.svg" alt="Cover">
+          <h4>Update Price</h4>
+        </div>
+      </a>
+      <a href="/general-customer">
+        <div class="card">
+          <img src="media/bank.svg" alt="Cover">
+          <h4>Payments in Bank</h4>
+        </div>
+      </a>
+      <a href="/new-bank">
+        <div class="card">
+          <img src="media/addbank.svg" alt="Cover">
+          <h4>Add Bank</h4>
+        </div>
+      </a>
+      <a href="/add-firm">
+        <div class="card">
+          <img src="media/firm.svg" alt="Cover">
+          <h4>Add Firm</h4>
+        </div>
+      </a>
+      <a href="/general-firm">
+        <div class="card">
+          <img src="media/generalfirm.svg" alt="Cover">
+          <h4>Payments to Firms</h4>
+        </div>
+      </a>
+      <a href="/purchase">
+        <div class="card">
+          <img src="media/purchase.svg" alt="Cover">
+          <h4>Purchases</h4>
+        </div>
+      </a>
+      <a href="/daybook">
+        <div class="card">
+          <img src="media/daybook.svg" alt="Cover">
+          <h4>Day Book</h4>
+        </div>
+      </a>
+      <a href="/add-vehicle">
+        <div class="card">
+          <img src="media/vehicle.svg" alt="Cover">
+          <h4>Add Vehicle</h4>
+        </div>
+      </a>
+      <a href="/bill-vehicle" target="_blank">
+        <div class="card">
+          <img src="media/printVehicle.svg" alt="Cover">
+          <h4>Print Bill Vehicle Wise</h4>
+        </div>
+      </a>
+      <a href="/bill" target="_blank">
+        <div class="card">
+          <img src="media/print.svg" alt="Cover">
+          <h4>Print Bill</h4>
+        </div>
+      </a>
+    </div>
+  </main>
+
+<%- include('../includes/end.ejs') %>

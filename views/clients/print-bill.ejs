@@ -1,0 +1,54 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/table.css">
+<link rel="stylesheet" href="css/bill.css">
+</head>
+<body>
+  
+    <main class="dashboard">
+      <div class="intro">
+        <img src="https://iocl.com/images/static/indianoil_logo.jpg" alt="Indian Oil">
+        <h1><%= user_name %></h1>
+      </div>
+      <h1 class="customer_name"><%= entries[0].customer_name.toUpperCase() %></h1>
+      <% if(startDate != null && endDate !== null) { %>
+      <h6 class="customer_date"><%= startDate %> to <%= endDate %></h6>
+      <% } %>
+      <% if(entries.length > 0) { %>
+      <% let totalAmount = 0; %>
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Product</th>
+            <th>Vehicle No.</th>
+            <th>Slip</th>
+            <th>Rate</th>
+            <th>Quantity</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (entry of entries) { %>
+            <% if(entry.amount > 0) { %>
+            <tr>
+              <td><%= entry.date.toISOString().substring(0, 10) %></td>
+              <td><%= entry.product %></td>
+              <td><%= entry.vehicle %></td>
+              <td><%= entry.slip %></td>
+              <td><%= entry.rate %></td>
+              <td><%= entry.quantity %></td>
+              <td><%= entry.amount > 0 ? entry.amount.toFixed(2) : -1 * (entry.amount).toFixed(2) %></td>
+              <% totalAmount = totalAmount + entry.amount %>
+            </tr>
+            <% } %>
+          <% } %>
+        </tbody>
+      </table>
+      <h3 class="customer_name">Total Amount: <%= totalAmount.toFixed(2) %></h3>
+      <% } else { %>
+        <h3 class="customer_name">No Record for the given Period</h3>
+      <% } %>
+  </main>
+
+<%- include('../includes/end.ejs') %>

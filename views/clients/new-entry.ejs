@@ -1,0 +1,79 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="css/newEntry.css">
+</head>
+<body>
+  <%- include('../includes/navigation.ejs') %>
+  
+
+  <% if((customers.length > 0 && products.length > 0)) { %>
+  <main class="new-entry">
+    <section>
+      <h3>New Entry</h3>
+      <form action="/new-entry" method="POST" id="entryNew">
+        <div class="single_entry">
+          <label for="date">Date</label>
+          <input type="date" name="date" id="date">
+        </div>
+        <div class="single_entry">
+          <label for="customer">Customer</label>
+          <select name="customer" id="customers">
+            <% for(customer of customers) { %>
+            <option value="<%= customer._id %>"><%= customer.customer_name %></option>
+            <% } %>
+          </select>
+          <input type="hidden" value="<%= customers[0].customer_name %>" name="customerName" id="customerDocument">
+        </div>
+        <div class="single_entry">
+          <label for="product">Product</label>
+          <input type="hidden" value="<%= products[0].name  %>" id="products" name="productName">
+          <select name="product" id="options">
+            <% for(prod of products) { %>
+            <option value="<%= prod.price %>"><%= prod.name %></option>
+            
+            <% } %>
+          </select>
+        </div>
+        <div class="single_entry">
+          <label for="vehicles">Vehicles</label>
+          <select name="vehicles" id="vehicles">
+            <% if(vehicles.length > 0) { %>
+              <% for (vehicle of vehicles) { %>
+                <% if(vehicle.customer_id === customers[0]._id.toString()) { %>
+                  <option value="<%= vehicle.vehicle_no %>"><%= vehicle.vehicle_no %></option>
+                <% } %>
+              <% } %>
+            <% } else { %>
+            <option value="none">None</option>
+            <% } %>
+          </select>
+        </div>
+        <div class="single_entry">
+          <label for="slip">Slip No</label>
+          <input type="text" name="slip" id="slip" required>
+        </div>
+        <div class="single_entry">
+          <label for="rate">Rate</label>
+          <input type="number" name="rate" value="<%= products[0].price %>" id="rate" step="0.01" required>
+        </div>
+        <div class="single_entry">
+          <label for="quantity">Quantity</label>
+          <input type="number" name="quantity" step="0.01" id="quantity" required>
+        </div>
+        <div class="single_entry">
+          <label for="amount">Amount</label>
+          <input type="text" name="amount" step="0.01" id="amount" required>
+        </div>
+        <div class="single_entry">
+          <button>Submit</button>
+        </div>
+      </form>
+    </section>
+  </main>
+  <% } else { %>
+    <h3 class="error">You haven't added products or customers</h3>
+  <% } %>
+
+  <script src="scripts/new-entry.js"></script>
+  <script src="scripts/date.js"></script>
+  <script src="scripts/slips.js"></script>
+<%- include('../includes/end.ejs') %>

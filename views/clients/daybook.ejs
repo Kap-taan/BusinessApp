@@ -1,0 +1,253 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="css/newEntry.css">
+<link rel="stylesheet" href="css/table.css">
+<link rel="stylesheet" href="css/daybook.css">
+</head>
+<body>
+  <%- include('../includes/navigation.ejs') %>
+
+  
+  
+  <main class="new-entry">
+
+    <h3 class="givendate"><%= givenDate %></h3>
+    <% if (type === 'Credit Sale') { %>
+      <section>
+        <% let totalAmount = 0; %>
+        <h3>Credit Sale</h3>
+      
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Party</th>
+            <th>Product</th>
+            <th>Rate</th>
+            <th>Quantity</th>
+            <th>Slip</th>
+            <th>Mode</th>
+            <th>Amount</th>
+            <th>Deletion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (entry of data) { %>
+            <% if(entry.amount > 0) { %>
+              <tr>
+                <td><%= entry.date.toISOString().substring(0, 10) %></td>
+                <td><%= entry.customer_name %></td>
+                <td><%= entry.product %></td>
+                <td><%= entry.rate %></td>
+                <td><%= entry.quantity %></td>
+                <td><%= entry.slip %></td>
+                <td><%= entry.mode %></td>
+                <td><%= entry.amount > 0 ? entry.amount : -1 * (entry.amount) %></td>
+                <td>
+                  <form id="Deletion" action="/daybook" method="POST">
+                    <input type="hidden" name="entry_id" value="<%= entry._id %>">
+                    <input type="hidden" name="type" value="<%= type %>">
+                    <input type="hidden" name="delete" value="delete">
+                    <input type="hidden" name="date" value="<%= givenDate %>">
+                    <button><img src="media/trash.svg" class="delete" alt="Delete"></button>
+                  </form>
+                </td>
+                <% totalAmount = totalAmount + parseFloat(entry.amount) %>
+              </tr>
+            <% } %>
+          <% } %>
+        </tbody>
+      </table>
+      <h3 class="customer_name">Total Amount: <%= totalAmount.toFixed(2) %></h3>
+    </section>
+    <% } %>
+
+    
+    <% if (type === 'Payments') { %>
+      <section>
+        <% let totalAmount = 0; %>
+        <h3>Payments</h3>
+        <table class="content-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Party</th>
+              <th>Product</th>
+              <th>Rate</th>
+              <th>Quantity</th>
+              <th>Slip</th>
+              <th>Mode</th>
+              <th>Amount</th>
+              <th>Deletion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (entry of data) { %>
+              <% if(entry.amount < 0) { %>
+                <tr class="<%= entry.amount > 0 ? '' : 'active' %>">
+                  <td><%= entry.date.toISOString().substring(0, 10) %></td>
+                  <td><%= entry.customer_name %></td>
+                  <td><%= entry.product %></td>
+                  <td><%= entry.rate %></td>
+                  <td><%= entry.quantity %></td>
+                  <td><%= entry.slip %></td>
+                  <td><%= entry.mode %></td>
+                  <td><%= entry.amount > 0 ? entry.amount : -1 * (entry.amount) %></td>
+                  <td>
+                    <form id="Deletion" action="/daybook" method="POST">
+                      <input type="hidden" name="entry_id" value="<%= entry._id %>">
+                      <input type="hidden" name="type" value="<%= type %>">
+                      <input type="hidden" name="delete" value="delete">
+                      <input type="hidden" name="date" value="<%= givenDate %>">
+                      <button><img src="media/trash.svg" class="delete" alt="Delete"></button>
+                    </form>
+                  </td>
+                  <% totalAmount = totalAmount + parseFloat(entry.amount) %>
+                </tr>
+              <% } %>
+            <% } %>
+          </tbody>
+        </table>
+        <h3 class="customer_name">Total Amount: <%= -1 * (totalAmount.toFixed(2)) %></h3>
+      </section>
+      <% } %>
+
+
+      <% if (type === 'Customer to Bank') { %>
+
+        <section>
+          <% let totalAmount = 0; %>
+          <h3>Customer to Bank</h3>
+          <table class="content-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Bank</th>
+                <th>Amount</th>
+                <th>Deletion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (generalcustomer of data) { %>
+              
+                  <tr>
+                    <td><%= generalcustomer.date.toISOString().substring(0, 10) %></td>
+                    <td><%= generalcustomer.customer_name %></td>
+                    <td><%= generalcustomer.bank_name %></td>
+                    <td><%= generalcustomer.amount %></td>
+                    <td>
+                      <form id="Deletion" action="/daybook" method="POST">
+                        <input type="hidden" name="entry_id" value="<%= generalcustomer._id %>">
+                        <input type="hidden" name="type" value="<%= type %>">
+                        <input type="hidden" name="delete" value="delete">
+                        <input type="hidden" name="date" value="<%= givenDate %>">
+                        <button><img src="media/trash.svg" class="delete" alt="Delete"></button>
+                      </form>
+                    </td>
+                    <% totalAmount = totalAmount + parseFloat(generalcustomer.amount) %>
+                  </tr>
+           
+              <% } %>
+            </tbody>
+          </table>
+          <h3 class="customer_name">Total Amount: <%= totalAmount.toFixed(2) %></h3>
+        </section>
+
+
+
+      <% } %>
+
+
+      <% if (type === 'Bank to Firm') { %>
+
+        <section>
+          <% let totalAmount = 0; %>
+          <h3>Bank to Firm</h3>
+          <table class="content-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Bank</th>
+                <th>Firm</th>
+                <th>Amount</th>
+                <th>Deletion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (generalcustomer of data) { %>
+              
+                  <tr>
+                    <td><%= generalcustomer.date.toISOString().substring(0, 10) %></td>
+                    <td><%= generalcustomer.bank_name %></td>
+                    <td><%= generalcustomer.firm_name %></td>
+                    <td><%= generalcustomer.amount %></td>
+                    <td>
+                      <form id="Deletion" action="/daybook" method="POST">
+                        <input type="hidden" name="entry_id" value="<%= generalcustomer._id %>">
+                        <input type="hidden" name="type" value="<%= type %>">
+                        <input type="hidden" name="delete" value="delete">
+                        <input type="hidden" name="date" value="<%= givenDate %>">
+                        <button><img src="media/trash.svg" class="delete" alt="Delete"></button>
+                      </form>
+                    </td>
+                    <% totalAmount = totalAmount + parseFloat(generalcustomer.amount) %>
+                  </tr>
+           
+              <% } %>
+            </tbody>
+          </table>
+          <h3 class="customer_name">Total Amount: <%= totalAmount.toFixed(2) %></h3>
+        </section>
+
+
+
+      <% } %>
+      
+
+
+      <% if (type === 'Purchases') { %>
+        <section>
+          <% let totalAmount = 0; %>
+          <h3>Purchases</h3>
+        
+        <table class="content-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Deletion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (entry of data) { %>
+              
+                <tr>
+                  <td><%= entry.date.toISOString().substring(0, 10) %></td>
+                  <td><%= entry.product %></td>
+                  <td><%= entry.quantity %></td>
+                  <td>
+                    <form id="Deletion" action="/daybook" method="POST">
+                      <input type="hidden" name="entry_id" value="<%= entry._id %>">
+                      <input type="hidden" name="type" value="<%= type %>">
+                      <input type="hidden" name="delete" value="delete">
+                      <input type="hidden" name="date" value="<%= givenDate %>">
+                      <button><img src="media/trash.svg" class="delete" alt="Delete"></button>
+                    </form>
+                  </td>
+                  <% totalAmount = totalAmount + parseFloat(entry.quantity) %>
+                </tr>
+             
+            <% } %>
+          </tbody>
+        </table>
+        <h3 class="customer_name">Total Quantity: <%= totalAmount.toFixed(2) %> Lts.</h3>
+      </section>
+      <% } %>
+
+  </main>
+
+
+  <script src="scripts/delete1.js"></script>
+
+<%- include('../includes/end.ejs') %> 

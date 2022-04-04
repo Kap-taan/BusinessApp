@@ -1,0 +1,42 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="css/newEntry.css">
+</head>
+<body>
+  <%- include('../includes/navigation.ejs') %>
+  
+  <% if (products.length > 0) { %>
+  <main class="new-entry">
+    <section>
+      <h3>Purchase</h3>
+      <form action="/purchase" method="POST">
+        <div class="single_entry">
+          <label for="date">Date</label>
+          <input type="date" name="date" id="date">
+        </div>
+        <div class="single_entry">
+          <label for="product">Product</label>
+          <select name="product" id="customers">
+            <% for(product of products) { %>
+            <option value="<%= product._id %>"><%= product.name %></option>
+            <% } %>
+          </select>
+          <input type="hidden" value="<%= products[0].name %>" name="productName" id="customerDocument">
+        </div>
+        <div class="single_entry">
+          <label for="quantity">Quantity</label>
+          <input type="text" name="quantity" step="0.01" id="quantity" required>
+        </div>
+        <div class="single_entry">
+          <button>Submit</button>
+        </div>
+      </form>
+    </section>
+  </main>
+  <% } else { %>
+    <h3 class="error">You haven't added products</h3>
+  <% } %>
+
+  <script src="scripts/purchase.js"></script>
+  <script src="scripts/date.js"></script>
+
+<%- include('../includes/end.ejs') %>

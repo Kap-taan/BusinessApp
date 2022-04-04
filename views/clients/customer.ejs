@@ -1,0 +1,31 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="css/newEntry.css">
+</head>
+<body>
+  <%- include('../includes/navigation.ejs') %>
+  
+  <main class="new-entry">
+    <section>
+      <h3>Customers</h3>
+      <form action="/customers" method="POST">
+        <div class="single_entry">
+          <label for="customer">Customer</label>
+          <select name="customer" id="customers">
+            <% for(customer of customers) { %>
+            <option value="<%= customer._id %>"><%= customer.customer_name %></option>
+            <% } %>
+          </select>
+        </div>
+        <div class="single_entry">
+          <label>Period</label>
+          <input type="date" name="startingDate">
+          <input type="date" name="endingDate">
+        </div>
+        <div class="single_entry">
+          <button>View</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+<%- include('../includes/end.ejs') %>

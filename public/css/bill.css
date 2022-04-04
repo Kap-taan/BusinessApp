@@ -1,0 +1,35 @@
+.intro {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  width: 600px;
+  margin: auto;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  /* border: 2px solid red; */
+  font-family: 'Nunito', sans-serif;
+}
+
+.intro img {
+  width: 100px;
+}
+
+.intro h1 { 
+  margin-left: 100px;
+  font-size: 30px;
+}
+
+.customer_vehicle {
+  font-size: 18px;
+  font-family: 'Nunito', sans-serif;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.customer_allamount {
+  text-align: center;
+  font-size: 25px;
+  font-family: 'Courier New', Courier, monospace;
+  margin-bottom: 50px;
+  margin-top: 10px;
+}

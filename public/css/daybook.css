@@ -1,0 +1,10 @@
+.givendate {
+  text-align: center;
+  /* border: 2px solid red; */
+  font-size: 15px;
+  padding: 20px;
+}
+
+.customer_name {
+  font-size: 15px;
+}
