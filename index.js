@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -13,13 +15,8 @@ const authRoutes = require("./routes/auth");
 
 const User = require("./models/user");
 
-// const MONGODB_URI =
-//   "mongodb+srv://harsh:test123@cluster0.0oiif.mongodb.net/business";
-
-const MONGODB_URI = "mongodb://localhost/business";
-
 const store = new MongoDBStore({
-  uri: MONGODB_URI,
+  uri: process.env.MONGO_URI,
   collection: "sessions",
 });
 
@@ -65,10 +62,10 @@ app.use(clientRoutes);
 app.use(authRoutes);
 
 mongoose
-  .connect(MONGODB_URI)
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Connected Successfully");
-    app.listen(3000);
+    app.listen(process.env.PORT || 3000);
   })
   .catch((err) => {
     console.log(err);
